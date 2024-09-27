@@ -1,0 +1,40 @@
+<%- include ("partials/header.ejs") %>
+<%- include ("partials/homenavbar.ejs")%>
+<body>
+    <div class="container">
+        <br>
+        <div class="jumbotron">
+            <h1 class="display-4">Olá, Curioso!</h1>
+            <p class="lead">Este servidor foi desenvolvidor como projeto pessoal para meu desenvolvimento de Node js Express</p>
+            <hr class="my-4">
+            <p>Abaixo você tem acesso a numerosos conteúdos registrados nas suas respectivas categorias, aproveite bem e envie um feedback para o email filipeventuri@hotmail.com</p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" href="/login" role="button">Painel do administrador</a>
+            </p>
+          </div>
+        <% Reports.forEach((one)=>{ %>
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <h2><%= one.title %></h2>
+
+            </div>
+            <div class="card-body">
+                <a class="btn btn-success" href="/<%=one.slug%>">Ler Artigo</a>
+            </div>
+            <div class="card-footer">
+                <%= one.category.title %>
+            </div>
+        </div>
+        <% }) %>
+        <br>
+        <div class="row" >
+            
+            <div class="col col-12"><a href="/Reports/page/2" style="float:right;"><i class="bi bi-arrow-right-square-fill">Next</i></a></div>
+        </div>
+        <br>
+        <br>
+    </div>
+</body>
+
+<%- include ("partials/footer.ejs") %>
