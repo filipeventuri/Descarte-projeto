@@ -12,6 +12,11 @@ router.get("/admin/users/create",(req,res)=>{
 router.post("/users/create", (req,res)=>{
     var email = req.body.email;
     var password = req.body.password;
+    var cep = req.body.cep;
+    var logradouro = req.body.logradouro;
+    var bairro = req.body.bairro;
+    var cidade = req.body.cidade;
+    var estado = req.body.estado;
     if(email == undefined || password == undefined) console.log("INDEFINIDO")
     var salt = bcrypt.genSaltSync(10); // NUMERO ALEATÓRIO PRA GERAR O SALT
     var hash= bcrypt.hashSync(password, salt);
@@ -20,7 +25,13 @@ router.post("/users/create", (req,res)=>{
         if(user == undefined){
             User.create({
                 email: email,
-                password: hash
+                password: hash,
+                cep: cep,
+                logradouro: logradouro,
+                bairro: bairro,
+                cidade: cidade,
+                estado: estado
+
             }).then(()=>{
                 res.redirect("/");
             }).catch(()=>{
@@ -79,7 +90,6 @@ router.post("/users/update", (req,res)=>{
     var id = req.body.id;
     var password = req.body.password;
 
-
     var salt = bcrypt.genSaltSync(10); // NUMERO ALEATÓRIO PRA GERAR O SALT
     var hash= bcrypt.hashSync(password, salt);
 
@@ -96,7 +106,7 @@ router.get("/login", (req,res)=>{
     })
 
     }else{
-        res.redirect("/admin/Reports");
+        res.redirect("/admin/Reports/new");
     }
 });
 
@@ -115,7 +125,7 @@ router.post("/authenticate", (req,res)=>{
                     id: user.id,
                     email: user.email
                 }
-                res.redirect("/admin/users");
+                res.redirect("/admin/Reports/new");
             }else{
                 res.redirect("/login")
             }
